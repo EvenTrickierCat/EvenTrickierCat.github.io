@@ -57,17 +57,18 @@ jobs:
       # - run: npm install -g bats
       # - run: bats -v
 
+      # https://github.com/marketplace/actions/changed-files
       - name: Get all post files that have changed
         id: changed-files-yaml
         uses: tj-actions/changed-files@v41
         with:
           files_yaml: |
             post:
-              - _posts/**
+              - _posts/**.md
             anyfile:
               - ./**
 
-      - name: Run step if test file(s) change
+      - name: Run step if post files changed
         # NOTE: Ensure all outputs are prefixed by the same key used above e.g. `test_(...)` | `doc_(...)` | `src_(...)` when trying to access the `any_changed` output.
         if: steps.changed-files-yaml.outputs.post_any_changed == 'true'  
         env:
@@ -75,11 +76,13 @@ jobs:
         run: |
           echo "One or more post file(s) has changed."
           echo -e "List all the files that have changed: \n$ALL_CHANGED_POST_FILES"
+          ./.github/workflows/scripts/posts-google-search.sh
       
-      - name: Run step if any file changed
-        if: steps.changed-files-yaml.outputs.anyfile_any_changed == 'true'
-        env:
-          ALL_CHANGED_FILES: ${{ steps.changed-files-yaml.outputs.anyfile_all_changed_files }}
-        run: |
-          echo "One or more file(s) has changed."
-          echo -e "List all the files that have changed: \n$ALL_CHANGED_FILES"
+      # - name: Run step if any files changed
+      #   if: steps.changed-files-yaml.outputs.anyfile_any_changed == 'true'
+      #   env:
+      #     ALL_CHANGED_FILES: ${{ steps.changed-files-yaml.outputs.anyfile_all_changed_files }}
+      #   run: |
+      #     echo "One or more file(s) has changed."
+      #     echo -e "List all the files that have changed: \n$ALL_CHANGED_FILES"
+
