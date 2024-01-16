@@ -1,5 +1,5 @@
-name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
+name: custom-workflow
+run-name: 🚀 ${{ github.actor }} runs a custom workflow
 # on: [push]
 on:
   workflow_run:
@@ -44,6 +44,8 @@ jobs:
   # Test job
   check-bats-version:
     runs-on: ubuntu-latest
+    # 😊 Run this job only if the triggering workflow succeeded (and not just completed)
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
