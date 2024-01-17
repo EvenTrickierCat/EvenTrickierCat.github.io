@@ -40,17 +40,21 @@ def submitRequest(absoluteUrl: str):
   "url": "{absoluteUrl}",
   "type": "URL_UPDATED"
 }}"""
-    print(reqBody)
+    print(f'Request to be submitted:\n{reqBody}')
     # respHeaders, respBody = http.request(GOOGLE_SEARCH_INDEXING_API['ENDPOINT'], method="POST", body=reqBody)
-    # print('\n================================\n')
-    # print(respHeaders)
-    # print('\n================================\n')
-    # print(respBody)
+    # print(f'Response headers: {respHeaders}')
+    # print(f'Response body: {respBody}')
 
 for file in ALL_CHANGED_POST_FILES:
     if not file: continue
 
     relativeUrl = postFilePathToUrlPath(file)
-    print(relativeUrl)
     absoluteUrl = f'{BASE_URL}/{relativeUrl}'
+    
+    print(f'File: {file}')
+    print(f'Relative URL: {relativeUrl}')
+    print(f'Absolute URL: {absoluteUrl}')
+    
     submitRequest(absoluteUrl)
+
+    print('\n-----------------\n')
