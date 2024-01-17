@@ -83,7 +83,7 @@ jobs:
         #if: steps.changed-files-yaml.outputs.post_any_changed == 'true'  
         env:
           ALL_CHANGED_POST_FILES: ${{ steps.changed-files-yaml.outputs.post_all_changed_files }}
-          BLOG_BASE_URL: ${{steps.deployment.outputs.page_url}}
+          BLOG_BASE_URL: https://hello.world
           GOOGLE_SEARCH_INDEXING_API_KEYFILE: 42
         run: |
           echo "One or more post file(s) has changed."

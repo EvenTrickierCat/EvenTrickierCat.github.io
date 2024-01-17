@@ -9,4 +9,4 @@ main :: IO ()
 main = putStrLn "Hello, World!"
 ```
 
-Update 6
+Update 7
