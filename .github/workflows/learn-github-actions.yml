@@ -68,15 +68,31 @@ jobs:
             anyfile:
               - ./**
 
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.3' # install the python version needed
+
+      # - name: install python packages
+      #   run: |
+      #     python -m pip install --upgrade pip
+      #     pip install -r requirements.txt
+
       - name: Run step if post files changed
         # NOTE: Ensure all outputs are prefixed by the same key used above e.g. `test_(...)` | `doc_(...)` | `src_(...)` when trying to access the `any_changed` output.
         #if: steps.changed-files-yaml.outputs.post_any_changed == 'true'  
         env:
           ALL_CHANGED_POST_FILES: ${{ steps.changed-files-yaml.outputs.post_all_changed_files }}
+          BLOG_BASE_URL: ${{steps.deployment.outputs.page_url}}
+          GOOGLE_SEARCH_INDEXING_API_KEYFILE: 42
         run: |
           echo "One or more post file(s) has changed."
           echo -e "List all the files that have changed: \n$ALL_CHANGED_POST_FILES"
-          bash ./.github/workflows/scripts/posts-google-search.sh
+          python -m pip install --upgrade pip
+          pip install oauth2client
+          python ./.github/workflows/scripts/posts-google-search.py
+        # bash ./.github/workflows/scripts/posts-google-search.sh
+        # python main.py
       
       # - name: Run step if any files changed
       #   if: steps.changed-files-yaml.outputs.anyfile_any_changed == 'true'
