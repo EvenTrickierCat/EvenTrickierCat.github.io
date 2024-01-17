@@ -16,7 +16,7 @@ try:
 
     # print(f'Keyfile: {GOOGLE_SEARCH_INDEXING_API["KEYFILE"]}')
     # print(f'Files: {ALL_CHANGED_POST_FILES}')
-    # print(f'Base URL: {BASE_URL}')
+    print(f'Base URL: {BASE_URL}')
 
     # Drop trailing slash if any
     if BASE_URL[-1] == '/':
