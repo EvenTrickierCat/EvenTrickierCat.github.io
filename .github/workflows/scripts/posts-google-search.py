@@ -16,7 +16,7 @@ try:
 
     # print(f'Keyfile: {GOOGLE_SEARCH_INDEXING_API["KEYFILE"]}')
     # print(f'Files: {ALL_CHANGED_POST_FILES}')
-    print(f'Base URL: {BASE_URL}')
+    # print(f'Base URL: {BASE_URL}')
 
     # Drop trailing slash if any
     if BASE_URL[-1] == '/':
@@ -26,16 +26,11 @@ except KeyError:
     print(f'Some required env vars were not resolved 👿')
     exit(-1)
 
-# _posts/2022-03-20-hello-world.md => 2022/03/20/hello-world.html
+# '_posts/2022-03-20-hello-world.md' => '2022/03/20/hello-world.html'
 def postFilePathToUrlPath(s: str):
     return (s.replace('_posts/', '')
             .replace('-', '/', 3)
             .replace('.md', '.html'))
-
-
-# service_account_file.json is the private key that you created for your service account.
-# JSON_KEY_FILE = "/search_console/blog-project.json"
-# credentials = ServiceAccountCredentials.from_json_keyfile_name(JSON_KEY_FILE, scopes=SCOPES)
 
 credentials = ServiceAccountCredentials.from_json_keyfile_dict(GOOGLE_SEARCH_INDEXING_API['KEYFILE'], scopes=GOOGLE_SEARCH_INDEXING_API['SCOPES'])
 http = credentials.authorize(httplib2.Http())
@@ -51,10 +46,6 @@ def submitRequest(absoluteUrl: str):
     # print(respHeaders)
     # print('\n================================\n')
     # print(respBody)
-
-
-# a = ["_posts/2022-03-20-hello-world.md", '_posts/2022-03-20-goodbye-world.md']
-# for file in a:
 
 for file in ALL_CHANGED_POST_FILES:
     if not file: continue
