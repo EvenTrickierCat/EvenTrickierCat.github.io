@@ -88,7 +88,7 @@ jobs:
         run: |
           echo "One or more post file(s) has changed."
           echo -e "List all the files that have changed: \n$ALL_CHANGED_POST_FILES"
-          pip install oauth2client
+          pip install oauth2client==4.1.3
           python ./.github/workflows/scripts/posts-google-search.py
         # bash ./.github/workflows/scripts/posts-google-search.sh
         # python main.py
