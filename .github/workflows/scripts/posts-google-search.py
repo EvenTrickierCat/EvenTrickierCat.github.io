@@ -1,6 +1,7 @@
 from oauth2client.service_account import ServiceAccountCredentials
 import httplib2
 import os
+import json
 
 GOOGLE_SEARCH_INDEXING_API = {
     'SCOPES' : [ "https://www.googleapis.com/auth/indexing" ],
@@ -10,6 +11,7 @@ GOOGLE_SEARCH_INDEXING_API = {
 
 try:
     GOOGLE_SEARCH_INDEXING_API['KEYFILE'] = os.environ['GOOGLE_SEARCH_INDEXING_API_KEYFILE']
+    GOOGLE_SEARCH_INDEXING_API['KEYFILE'] = json.loads(GOOGLE_SEARCH_INDEXING_API['KEYFILE'])
     ALL_CHANGED_POST_FILES = os.environ['ALL_CHANGED_POST_FILES'].split(' ')
     BASE_URL = os.environ['BLOG_BASE_URL']
 
@@ -43,7 +45,7 @@ def postFilePathToUrlPath(s: str):
 # JSON_KEY_FILE = "/search_console/blog-project.json"
 # credentials = ServiceAccountCredentials.from_json_keyfile_name(JSON_KEY_FILE, scopes=SCOPES)
 
-credentials = ServiceAccountCredentials.from_json(GOOGLE_SEARCH_INDEXING_API['KEYFILE'], scopes=GOOGLE_SEARCH_INDEXING_API['SCOPES'])
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(GOOGLE_SEARCH_INDEXING_API['KEYFILE'], scopes=GOOGLE_SEARCH_INDEXING_API['SCOPES'])
 http = credentials.authorize(httplib2.Http())
 
 # Define contents here as a JSON string.
