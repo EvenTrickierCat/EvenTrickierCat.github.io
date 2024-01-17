@@ -43,7 +43,7 @@ def postFilePathToUrlPath(s: str):
 # JSON_KEY_FILE = "/search_console/blog-project.json"
 # credentials = ServiceAccountCredentials.from_json_keyfile_name(JSON_KEY_FILE, scopes=SCOPES)
 
-credentials = ServiceAccountCredentials.from_json_keyfile_name(GOOGLE_SEARCH_INDEXING_API.KEYFILE, scopes=GOOGLE_SEARCH_INDEXING_API.SCOPES)
+credentials = ServiceAccountCredentials.from_json_keyfile_name(GOOGLE_SEARCH_INDEXING_API['KEYFILE'], scopes=GOOGLE_SEARCH_INDEXING_API['SCOPES'])
 http = credentials.authorize(httplib2.Http())
 
 # Define contents here as a JSON string.
@@ -68,7 +68,7 @@ def submitRequest(absoluteUrl: str):
   "type": "URL_UPDATED"
 }}"""
     print(reqBody)
-    # respHeaders, respBody = http.request(GOOGLE_SEARCH_INDEXING_API.ENDPOINT, method="POST", body=reqBody)
+    # respHeaders, respBody = http.request(GOOGLE_SEARCH_INDEXING_API['ENDPOINT'], method="POST", body=reqBody)
     # print('\n================================\n')
     # print(respHeaders)
     # print('\n================================\n')
