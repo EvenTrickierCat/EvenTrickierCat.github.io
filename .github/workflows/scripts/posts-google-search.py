@@ -12,14 +12,17 @@ try:
     GOOGLE_SEARCH_INDEXING_API['KEYFILE'] = os.environ['GOOGLE_SEARCH_INDEXING_API_KEYFILE']
     ALL_CHANGED_POST_FILES = os.environ['ALL_CHANGED_POST_FILES'].split(' ')
     BASE_URL = os.environ['BLOG_BASE_URL']
+
+    print(f'Keyfile: {GOOGLE_SEARCH_INDEXING_API["KEYFILE"]}')
+    print(f'Files: {ALL_CHANGED_POST_FILES}')
+    print(f'Base URL: {BASE_URL}')
+
     # Drop trailing slash if any
     if BASE_URL[-1] == '/':
         BASE_URL = BASE_URL[:-1]
 
 
-    print(f'Keyfile: {GOOGLE_SEARCH_INDEXING_API["KEYFILE"]}')
-    print(f'Files: {ALL_CHANGED_POST_FILES}')
-    print(f'Base URL: {BASE_URL}')
+    
 except KeyError:
     print(f'Some required env vars were not resolved.')
     exit()
