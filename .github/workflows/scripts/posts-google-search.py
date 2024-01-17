@@ -14,17 +14,13 @@ try:
     ALL_CHANGED_POST_FILES = os.environ['ALL_CHANGED_POST_FILES'].split(' ')
     BASE_URL = os.environ['BLOG_BASE_URL']
 
-    # print(f'Keyfile: {GOOGLE_SEARCH_INDEXING_API["KEYFILE"]}')
-    # print(f'Files: {ALL_CHANGED_POST_FILES}')
-    # print(f'Base URL: {BASE_URL}')
-
     # Drop trailing slash if any
     if BASE_URL[-1] == '/':
         BASE_URL = BASE_URL[:-1]
 
 except KeyError:
     print(f'Some required env vars were not resolved 👿')
-    exit(-1)
+    exit(1)
 
 # '_posts/2022-03-20-hello-world.md' => '2022/03/20/hello-world.html'
 def postFilePathToUrlPath(s: str):
@@ -45,13 +41,13 @@ def submitRequest(absoluteUrl: str):
     # print(f'Response headers: {respHeaders}')
     # print(f'Response body: {respBody}')
 
-for file in ALL_CHANGED_POST_FILES:
-    if not file: continue
+for postFile in ALL_CHANGED_POST_FILES:
+    if not postFile: continue
 
-    relativeUrl = postFilePathToUrlPath(file)
+    relativeUrl = postFilePathToUrlPath(postFile)
     absoluteUrl = f'{BASE_URL}/{relativeUrl}'
     
-    print(f'File: {file}')
+    print(f'Post file: {postFile}')
     print(f'Relative URL: {relativeUrl}')
     print(f'Absolute URL: {absoluteUrl}')
     
