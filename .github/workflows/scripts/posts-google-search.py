@@ -44,6 +44,8 @@ def submitRequest(absoluteUrl: str):
 for postFile in ALL_CHANGED_POST_FILES:
     if not postFile: continue
 
+    print('\n-----------------\n')
+
     relativeUrl = postFilePathToUrlPath(postFile)
     absoluteUrl = f'{BASE_URL}/{relativeUrl}'
     
